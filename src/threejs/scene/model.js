@@ -6,6 +6,8 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { SetCarMaterial } from "./SetCarMaterial.js";
 // 标注热点
 import { CreateCarTags } from "./PointsTag.js";
+// 开门动画
+import { open } from "./open.js";
 
 var model = new THREE.Group(); //声明一个组对象，用来添加加载成功的三维场景
 var loader = new GLTFLoader(); //创建一个GLTF加载器
@@ -19,6 +21,9 @@ loader.load("./model/轿车.glb", function (gltf) {
 
   // 标注热点
   CreateCarTags(gltf.scene);
+
+  open(gltf.scene); //车门打开
+
   // 开关车门旋转测试
   // 通过坐标系判断一下可以绕哪个轴旋转，至于旋转值是负数还是正数可以代码测试下
   // gltf.scene.getObjectByName('右前门').rotateY(Math.PI / 3);
