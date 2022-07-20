@@ -39,12 +39,12 @@ var controls = new OrbitControls(camera, renderer.domElement);
 
 // 距离的具体指，3D操作三维场景，同时通过渲染循环计算相机与目标的距离
 // //相机距离观察目标点极小距离——模型最大状态
-// controls.minDistance = 500;
+controls.minDistance = 500;
 // //相机距离观察目标点极大距离——模型最小状态
-// controls.maxDistance = 1200;
+controls.maxDistance = 1200;
 
 // 上下旋转最大值设置
-// controls.maxPolarAngle = (Math.PI / 2) * 0.9;
+controls.maxPolarAngle = (Math.PI / 2) * 0.9;
 
 // onresize 事件会在窗口被调整大小时发生
 window.onresize = function () {
