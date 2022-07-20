@@ -84,7 +84,6 @@ var sphereGeo = new THREE.CylinderGeometry(
   true //底面是开放的还是封顶的
 );
 var pos = sphereGeo.attributes.position;
-console.log("pos", pos);
 // 创建圆：pos.count（1683） = 圆柱侧面周围的分段数（32） * 圆柱侧面沿着其高度的分段数（50）
 var cirGeo = new THREE.CircleGeometry(8, 15, 15);
 for (let i = 0; i < pos.count; i++) {
