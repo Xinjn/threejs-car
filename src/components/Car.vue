@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div id="color" style="">
+    <div class="colorChoose" id="color1"><img src="@/assets/绿.jpg"></div>
+    <div class="colorChoose" id="color2"><img src="@/assets/灰.jpg"></div>
+    <div class="colorChoose" id="color3"><img src="@/assets/红.jpg"></div>
+    <div class="colorChoose" id="color4"><img src="@/assets/黑.jpg"></div>
+    <div class="colorChoose" id="color5"><img src="@/assets/白.jpg"></div>
   </div>
 </template>
 
@@ -8,6 +13,8 @@
 import {
   renderer
 } from '../threejs/RenderLoop'
+//车模型
+import { model } from '../threejs/scene/model'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Car',
@@ -17,11 +24,61 @@ export default {
   mounted: function () {
     // Three.js渲染结果Canvas画布插入到body元素中
     document.body.appendChild(renderer.domElement);
+    // 颜色dom监听
+    this.colorEvent()
+  },
+  methods: {
+    setColor: function (color) {
+      model.traverse(function (object) {
+        if (object.type === 'Mesh') {
+          if (object.name.slice(0, 2) == "外壳") { //外壳颜色设置
+            object.material.color.set(color);
+          }
+        }
+      })
+    },
+    colorEvent: function () {
+      const _this = this
+      var colorArr = [0x023911, 0x222222, 0x6a030a, 0x000000, 0xffffff];
+      colorArr.forEach(function (value, i) {
+        var dom = document.getElementById('color' + (i+1));
+        // 单击按钮切换颜色
+        dom.onclick = function () {
+          _this.setColor(value)
+        }
+      })
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .colorChoose {
+      display: inline-block;
+      margin-left: 20px;
+      cursor: pointer;
+    }
 
+    .colorChoose img {
+      width: 50px;
+      border-radius: 25px;
+    }
+
+    #color {
+      width: 400px;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 16px;
+      border-radius: 6px;
+      left: 50%;
+      margin-left: -190px;
+      top: 100%;
+      margin-top: -80px;
+    }
 </style>
