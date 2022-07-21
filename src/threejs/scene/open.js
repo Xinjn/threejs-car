@@ -1,6 +1,10 @@
 // 引入Three.js
 import * as THREE from "three/build/three.module.js";
 import { camera } from "../RendererCamera.js";
+
+/**
+ * 车门音效
+ */
 // 创建一个监听者
 var listener = new THREE.AudioListener();
 // 创建一个非位置音频对象  用来控制播放

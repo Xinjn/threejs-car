@@ -1,10 +1,28 @@
 <template>
-  <div id="color" style="">
-    <div class="colorChoose" id="color1"><img src="@/assets/绿.jpg"></div>
-    <div class="colorChoose" id="color2"><img src="@/assets/灰.jpg"></div>
-    <div class="colorChoose" id="color3"><img src="@/assets/红.jpg"></div>
-    <div class="colorChoose" id="color4"><img src="@/assets/黑.jpg"></div>
-    <div class="colorChoose" id="color5"><img src="@/assets/白.jpg"></div>
+  <div>
+    <div style="position: absolute;right: 10px;top:10px;">
+        <a class="gou" style="" href="https://www.bydauto.com.cn/news-id-2775.html">
+          <img src="@/assets/购买.png" alt="" width="24" style="vertical-align: middle;">
+          <span>购买</span>
+        </a>
+
+        <a class="gou" style="margin-top:10px;" href="https://www.bydauto.com.cn/news-id-2775.html">
+          <img src="@/assets/试驾.png" alt="" width="24" style="vertical-align: middle;">
+          <span>试驾</span>
+        </a>
+
+      </div>
+        <div id="changeColor">
+        <img src="@/assets/变色.png" alt="" width="24" style="vertical-align: middle;">
+        <span id="changeColorText">停止变色</span>
+      </div>
+      <div id="color" style="">
+        <div class="colorChoose" id="color1"><img src="@/assets/绿.jpg"></div>
+        <div class="colorChoose" id="color2"><img src="@/assets/灰.jpg"></div>
+        <div class="colorChoose" id="color3"><img src="@/assets/红.jpg"></div>
+        <div class="colorChoose" id="color4"><img src="@/assets/黑.jpg"></div>
+        <div class="colorChoose" id="color5"><img src="@/assets/白.jpg"></div>
+      </div>
   </div>
 </template>
 
@@ -15,19 +33,45 @@ import {
 } from '../threejs/RenderLoop'
 //车模型
 import { model } from '../threejs/scene/model'
+// 颜色动画
+import { colorTween } from '../threejs/scene/colorTween'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Car',
   props: {
     msg: String
   },
+  data() {
+    return {
+      colorAuto:true // 变色动画开关
+    }
+  },
   mounted: function () {
     // Three.js渲染结果Canvas画布插入到body元素中
     document.body.appendChild(renderer.domElement);
     // 颜色dom监听
     this.colorEvent()
+    // 颜色自动改变监听
+    this.colorAutoEvent()
   },
   methods: {
+    colorAutoEvent: function () {
+      // 颜色变化动画开关
+      document.getElementById('changeColor').onclick = function () {
+
+      if (this.colorAuto) {
+        colorTween.stop();//停止动画
+        this.colorAuto = false;
+        document.getElementById('changeColorText').innerHTML = '开始变色';
+        this.setColor(0x023911);//动画停止，颜色回到最初的状态
+      }else {
+        colorTween.start();//开始动画
+        this.colorAuto = true;
+        document.getElementById('changeColorText').innerHTML = '停止变色';
+      }
+    }
+    },
     setColor: function (color) {
       model.traverse(function (object) {
         if (object.type === 'Mesh') {
@@ -59,6 +103,7 @@ export default {
       overflow: hidden;
       background: #f0f0f0;
     }
+
     .colorChoose {
       display: inline-block;
       margin-left: 20px;
@@ -80,5 +125,34 @@ export default {
       margin-left: -190px;
       top: 100%;
       margin-top: -80px;
+    }
+
+    .gou {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 16px;
+      display: block;
+      padding: 8px 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 30px;
+      height: 42px;
+      line-height: 28px;
+    }
+
+    #changeColor {
+      color: #ffffff;
+      font-size: 16px;
+      display: block;
+      padding: 8px 16px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 30px;
+      height: 42px;
+      line-height: 28px;
+
+      cursor: pointer;
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      margin-top: -22px;
     }
 </style>
