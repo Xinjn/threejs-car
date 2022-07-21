@@ -12,4 +12,14 @@ function render() {
 }
 render();
 
-export { renderer };
+// 模型旋转动画
+var rotateAnimation = null;
+function loop() {
+  rotateAnimation = requestAnimationFrame(loop);
+  scene.rotateY(0.001);
+}
+
+function stopLoop() {
+  cancelAnimationFrame(rotateAnimation);
+}
+export { renderer, loop, stopLoop };

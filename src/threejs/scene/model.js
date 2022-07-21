@@ -8,6 +8,8 @@ import { SetCarMaterial } from "./SetCarMaterial.js";
 import { CreateCarTags } from "./PointsTag.js";
 // 开门动画
 import { open } from "./open.js";
+// 加载轿车前灯发光模拟
+import { lensflare1, lensflare2 } from "./carLight.js";
 
 var model = new THREE.Group(); //声明一个组对象，用来添加加载成功的三维场景
 var loader = new GLTFLoader(); //创建一个GLTF加载器
@@ -34,5 +36,14 @@ loader.load("./model/轿车.glb", function (gltf) {
 
   // 访问需要标注特点的位置
   // console.log(gltf.scene.getObjectByName('右前光标'));
+
+  /**
+   *  灯光载入模型
+   */
+  // glrt模型中用来给车灯定位的空物体,获取坐标，用来在openCarLight.js文件中生成发光效果
+  var light1 = gltf.scene.getObjectByName("镜头光晕1");
+  var light2 = gltf.scene.getObjectByName("镜头光晕2");
+  light1.add(lensflare1);
+  light2.add(lensflare2);
 });
 export { model };

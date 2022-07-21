@@ -23,8 +23,8 @@ var ambient = new THREE.AmbientLight(0xffffff, 0.9);
 scene.add(ambient);
 
 // Three.js三维坐标轴 三个坐标轴颜色RGB分别对应xyz轴
-var axesHelper = new THREE.AxesHelper(250);
-scene.add(axesHelper);
+// var axesHelper = new THREE.AxesHelper(250);
+// scene.add(axesHelper);
 
 /**
  * 地面
@@ -125,4 +125,9 @@ sphereGroup.position.y = -10;
 
 // 雾化效果
 scene.fog = new THREE.Fog(0xcccccc, 1200, 3500);
-export { scene };
+export {
+  scene, //场景
+  directionalLight, // 平行光1
+  directionalLight2, //平行光2
+  ambient, //环境光
+};

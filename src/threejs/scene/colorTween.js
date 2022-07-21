@@ -120,6 +120,6 @@ var colorTween = tweenArr[0];
 
 // 控制一个补间:start 和 stop
 // 播放动画：初始化
-colorTween.start();
+// colorTween.start();
 
 export { colorTween };
